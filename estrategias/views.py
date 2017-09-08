@@ -10,7 +10,9 @@ from .forms import EstrategiaTituloForm,\
                    EstrategiaLoginForm,\
                    EstrategiaProblematicaForm,\
                    EstrategiaCausasForm,\
-                   EstrategiaSolucionPoliticaForm
+                   EstrategiaSolucionPoliticaForm,\
+                   EstrategiaObjetivoForm,\
+                   EstrategiaResultadosIntermediosForm
 
 
 def index(request):
@@ -245,7 +247,6 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
 
 
 # Objetivos
-# TODO: Finalizar estas vistas, que aun no estan listas
 
 class ObjetivosPreView(LoginRequiredMixin, generic.DetailView):
     model = Estrategia
@@ -253,39 +254,154 @@ class ObjetivosPreView(LoginRequiredMixin, generic.DetailView):
     login_url = '/login'
 
 
-class ObjetivosNuevoView(LoginRequiredMixin, generic.DetailView):
+class ObjetivosView(LoginRequiredMixin, generic.DetailView):
     model = Estrategia
-    template_name = 'estrategias/objetivos_detail.html'
-
-
-class ObjetivosView(LoginRequiredMixin, generic.ListView):
-    model = Objetivo
-    template_name = 'estrategias/objetivos_list.html'
-    context_object_name = 'objetivos'
+    template_name = 'estrategias/objetivos.html'
     login_url = '/login'
 
-    def get_queryset(self):
-        qs = super(ObjetivosView, self).get_queryset()
-        return qs.filter(estrategia=self.objectt.pk)
-
-    def post(self, request, *args, **kwargs):
-        if len(self.get_queryset()) < 1:
-            return redirect('/estrategias/%s/objetivos/nuevo' % estrategia.id)
-        else:
-            return super(ObjetivosView, self).post(request, *args, **kwargs)
-
     def get(self, request, *args, **kwargs):
-        if len(self.get_queryset()) < 1:
-            return redirect('/estrategias/%s/objetivos/nuevo' % estrategia.id)
+        self.object = self.get_object()
+
+        if not self.object.has_objetivos():
+            return redirect(reverse('estrategias:objetivos_nuevo', kwargs={'pk': self.object.pk}))
         else:
-            return super(ObjetivosView, self).post(request, *args, **kwargs)
+            return super(ObjetivosView, self).get(request, *args, **kwargs)
 
 
-class ObjetivosDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Objetivo
-    template_name = 'estrategias/objetivos_detail.html'
+#class ObjetivosDetailView(LoginRequiredMixin, generic.DetailView):
+    # XXX: Pendiente
+#    model = Objetivo
+#    template_name = 'estrategias/objetivos_detail.html'
 
 
 class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):
-    model = Objetivo
+    form_class = EstrategiaObjetivoForm
     template_name = 'estrategias/objetivos_edit.html'
+    model = Estrategia
+    login_url = '/login'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        
+        try:
+            id_objetivo = kwargs['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = None
+
+        return super(ObjetivosDetailEditView, self).post(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = kwargs['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = None
+
+        return super(ObjetivosDetailEditView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ObjetivosDetailEditView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        if self.objetivo == "":
+            context['empezovacio'] = True
+
+        return context
+
+    def form_valid(self, form):
+        self.objetivo.objetivo = form.instance.objetivo
+        self.objetivo.save()
+
+        if 'empezovacio' in self.request.POST:
+            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+        else:
+            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+
+    def get_initial(self):
+        initial = super(ObjetivosDetailEditView, self).get_initial()
+        initial['objetivo'] = self.objetivo.objetivo
+
+        return initial
+
+
+class ResultadosIntermediosPreView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/resultadosintermedios_pre.html'
+    login_url = '/login'
+
+
+class ResultadosIntermediosView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/resultadosintermedios.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = kwargs['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = None
+
+        if not self.object.has_resultadosintermedios():
+            return redirect(reverse('estrategias:resultadosintermedios_edit', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+        else:
+            return super(ResultadosIntermediosView, self).get(request, *args, **kwargs)
+
+
+class ResultadosIntermediosEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):
+    form_class = EstrategiaResultadosIntermediosForm
+    template_name = 'estrategias/resultadosintermedios_edit.html'
+    model = Estrategia
+    login_url = '/login'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = kwargs['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = None
+
+        return super(ResultadosIntermediosEditView, self).post(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = kwargs['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = None
+
+        return super(ResultadosIntermediosEditView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ResultadosIntermediosEditView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        if self.objetivo == "":
+            context['empezovacio'] = True
+
+        return context
+
+    def form_valid(self, form):
+        self.objetivo.objetivo = form.instance.objetivo
+        self.objetivo.save()
+
+        if 'empezovacio' in self.request.POST:
+            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+        else:
+            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+
+    def get_initial(self):
+        initial = super(ResultadosIntermediosEditView, self).get_initial()
+        initial['objetivo'] = self.objetivo.objetivo
+
+        return initial

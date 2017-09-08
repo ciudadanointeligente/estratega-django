@@ -73,7 +73,7 @@
         </div>
         {% elif estrategia.me_next == 'objetivos' %}
         <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:objetivos_edit' estrategia.id %}">
+            <a href="{% url 'estrategias:objetivos_edit' pk=estrategia.id oid=estrategia.get_objetivo_prioritario.id %}">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Objetivos</p>
             </a>

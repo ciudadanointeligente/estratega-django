@@ -32,7 +32,12 @@ class Estrategia(models.Model):
             return True
 
     def has_objetivos(self):
-        return False
+        objetivo = self.get_objetivo_prioritario()
+
+        if (objetivo is None) or (objetivo == ''):
+            return False
+        else:
+            return True
 
     def has_resultadosintermedios(self):
         return False
@@ -62,10 +67,6 @@ class Estrategia(models.Model):
             me_next = 'solucionpolitica'
         elif not self.has_objetivos():
             me_next = 'objetivos'
-        elif not self.has_solucionpolitica():
-            me_next = 'solucionpolitica'
-        elif not self.has_objetivos():
-            me_next = 'objetivos'
         elif not self.has_resultadosintermedios():
             me_next = 'resultadosintermedios'
         elif not self.has_factoreshabilitantes():
@@ -79,13 +80,18 @@ class Estrategia(models.Model):
 
         return me_next
 
-    def primerobjetivo(self):
-        primerobjetivo = Objetivo.objects.get()
+    def get_objetivo_prioritario(self):
+        try:
+            prioritario = self.objetivos.order_by('prioridad')[0]
+            return prioritario
+        except:
+            return None
 
 
 class Objetivo(models.Model):
-    #estrategia = models.ForeignKey(Estrategia)
     objetivo = models.TextField()
+    prioridad = models.IntegerField(default=1)
+
     resultadosintermedios = models.TextField()
     factoreshabilitantes = models.TextField()
     barreras = models.TextField()

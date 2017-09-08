@@ -9,40 +9,40 @@
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-solucionpolitica-titulo">
+<section class="metodologia default-p-top" id="section-resultadosintermedios-titulo">
     <div class="container">
         <div class="row">
             <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
         </div>
-        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="solucionpolitica" %}
+        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="resultadosintermedios" %}
     </div>
 </section>
 
-<section class="flujo-estrategia flujo-estrategia-show" id="section-solucionpolitica-solucionpolitica">
+<section class="flujo-estrategia flujo-estrategia-show" id="section-resultadosintermedios-resultadosintermedios">
     <div class="container">
         <div class="row">
             <div class="col-md-2 text-center">
-                <img alt="solucionpolitica" src="{% static 'images/m02.svg' %}">
+                <img alt="resultadosintermedios" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
-                <h3>Solución Política</h3>
-                <a href="{% url "estrategias:solucionpolitica_edit" pk=estrategia.id %}" class="" role="">Editar</a>
+                <h3>Resultados Intermedios</h3>
+                <a href="{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id oid=objetivo.id %}" class="" role="">Editar</a>
             </div>
-            {% if estrategia.has_solucionpolitica %}
+            {% if estrategia.has_resultadosintermedios %}
             <div class="col-md-7 col-md-offset-1">
                 <div class="row">
-                    <p><p>{{estrategia.solucionpolitica}}</p></p>
+                    <p>{{estrategia.resultadosintermedios}}</p>
                 </div>
 
                 <div class="row spacer30"></div>
 
                 <div class="row pull-right">
-                    
+
                 </div>
             </div>
             {% else %}
             <div class="col-md-7 text-center">
-                <a href="{% url "estrategias:solucionpolitica_edit" pk=estrategia.id %}" class="" role="">Defina las solucionpolitica</a>
+                <a href="{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id oid=objetivo.id %}" class="" role="">Defina su problemática</a>
             </div>
             {% endif %}
         </div>

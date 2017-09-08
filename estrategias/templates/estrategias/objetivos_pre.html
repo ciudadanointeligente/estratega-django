@@ -8,7 +8,7 @@
 <script>
     // redirect to google after 3 seconds
     window.setTimeout(function() {
-        window.location.href = '{% url "estrategias:objetivos_nuevo" pk=estrategia.id %}';
+        window.location.href = '{% url "estrategias:objetivos_edit" pk=estrategia.id oid=estrategia.get_objetivo_prioritario.id %}';
     }, 3000);
     </script>
 {% endblock %}
@@ -20,7 +20,7 @@
 {% block content %}
 <section class="metodologia default-p-top" id="section-causas-titulo">
     <div class="container">
-        {% include "estrategias/sections/row_item_metodologia_check.html" with item="objetivos" %}
+        {% include "estrategias/sections/row_item_metodologia_check.html" with item="solucionpolitica" %}
     </div>
     <div class="row spacer60"></div>
 </section>

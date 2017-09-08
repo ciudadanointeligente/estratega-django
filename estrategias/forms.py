@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.core.exceptions import ValidationError
 
-from .models import Estrategia
+from .models import Estrategia, Objetivo
 
 
 class EstrategiaLoginForm(AuthenticationForm):
@@ -83,3 +83,33 @@ class EstrategiaSolucionPoliticaForm(forms.ModelForm):
         )  
 
     solucionpolitica = forms.TextInput()
+
+
+class EstrategiaObjetivoForm(forms.ModelForm):
+    class Meta:
+        model = Objetivo
+        fields = ('objetivo',)
+
+    def __init__(self, *args, **kwargs):
+        super(EstrategiaObjetivoForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+                                Field('objetivo', css_class='input-xlarge'),
+        )  
+
+    objetivo = forms.TextInput()
+
+
+class EstrategiaResultadosIntermediosForm(forms.ModelForm):
+    class Meta:
+        model = Objetivo
+        fields = ('resultadosintermedios',)
+
+    def __init__(self, *args, **kwargs):
+        super(EstrategiaResultadosIntermediosForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+                                Field('resultadosintermedios', css_class='input-xlarge'),
+        )  
+
+    resultadosintermedios = forms.TextInput()
