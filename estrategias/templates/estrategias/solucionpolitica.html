@@ -30,19 +30,8 @@
             </div>
             {% if estrategia.has_solucionpolitica %}
             <div class="col-md-7 col-md-offset-1">
-                <div class="row">
-                    <p><p>{{estrategia.solucionpolitica}}</p></p>
-                </div>
-
-                <div class="row spacer30"></div>
-
-                <div class="row pull-right">
-                    
-                </div>
-            </div>
-            {% else %}
-            <div class="col-md-7 text-center">
-                <a href="{% url "estrategias:solucionpolitica_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}" class="" role="">Defina las solucionpolitica</a>
+                <p>{{estrategia.solucionpolitica}}</p>
+                <div class="spacer30"></div>
             </div>
             {% endif %}
         </div>

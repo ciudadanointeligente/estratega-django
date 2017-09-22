@@ -9,28 +9,28 @@
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-resultadosintermedios-titulo">
+<section class="metodologia default-p-top" id="section-barreras-titulo">
     <div class="container">
         <div class="row">
             <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
         </div>
-        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="resultadosintermedios" %}
+        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="barreras" %}
     </div>
 </section>
 
-<section class="flujo-estrategia flujo-estrategia-show" id="section-resultadosintermedios-resultadosintermedios">
+<section class="flujo-estrategia flujo-estrategia-show" id="section-barreras-barreras">
     <div class="container">
         <div class="row">
             <div class="col-md-2 text-center">
-                <img alt="resultadosintermedios" src="{% static 'images/m02.svg' %}">
+                <img alt="Barreras" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
-                <h3>Resultados Intermedios</h3>
-                <a href='{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Editar</a>
+                <h3>Barreras</h3>
+                <a href='{% url "estrategias:barreras_edit" pk=estrategia.id oid=objetivo.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Editar</a>
             </div>
-            {% if objetivo.has_resultadosintermedios %}
+            {% if objetivo.has_barreras %}
             <div class="col-md-7 col-md-offset-1">
-                <p>{{objetivo.resultadosintermedios}}</p>
+                <p>{{objetivo.barreras}}</p>
                 <div class="spacer30"></div>
             </div>
             {% endif %}

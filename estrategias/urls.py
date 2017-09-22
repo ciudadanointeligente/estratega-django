@@ -30,11 +30,16 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/objetivos$', views.ObjetivosView.as_view(), name='objetivos'),
     # url(r'^(?P<pk>[0-9]+)/objetivos/(?P<oid>[0-9]+)$', views.ObjetivosDetailView.as_view(), name='objetivos_detail'),
     url(r'^(?P<pk>[0-9]+)/objetivos/edit$', views.ObjetivosDetailEditView.as_view(), name='objetivos_edit'),
-    # url(r'^(?P<pk>[0-9]+)/objetivos/nuevo$', views.ObjetivosNuevoView.as_view(), name='objetivos_nuevo'),
+    url(r'^(?P<pk>[0-9]+)/objetivos/nuevo$', views.ObjetivosNuevoView.as_view(), name='objetivos_nuevo'),
 
     # resultadosintermedios
     url(r'^(?P<pk>[0-9]+)/resultadosintermedios/pre$', views.ResultadosIntermediosPreView.as_view(), name='resultadosintermedios_pre'),
     url(r'^(?P<pk>[0-9]+)/resultadosintermedios$', views.ResultadosIntermediosView.as_view(), name='resultadosintermedios'),
     url(r'^(?P<pk>[0-9]+)/resultadosintermedios/edit$', views.ResultadosIntermediosEditView.as_view(), name='resultadosintermedios_edit'),
+
+    # barreras
+    url(r'^(?P<pk>[0-9]+)/barreras/pre$', views.BarrerasPreView.as_view(), name='barreras_pre'),
+    url(r'^(?P<pk>[0-9]+)/barreras$', views.BarrerasView.as_view(), name='barreras'),
+    url(r'^(?P<pk>[0-9]+)/barreras/edit$', views.BarrerasEditView.as_view(), name='barreras_edit'),
 ]
 

@@ -86,14 +86,15 @@
         {% endif %}
     </div>
     <div class="col-md-6 nopadding">
-        {% if estrategia.has_resultadosintermedios %}
+        <!-- Resultados Intermedios -->
+        {% if objetivo.has_resultadosintermedios %}
         <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
             <a href="{% url 'estrategias:resultadosintermedios' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
                 <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Resultados Intermedios</p>
             </a>
         </div>
-        {% elif estrategia.me_next == 'resultadosintermedios' %}
+        {% elif objetivo.me_next == 'resultadosintermedios' %}
         <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
             <a href="{% url 'estrategias:resultadosintermedios_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
                 <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
@@ -106,17 +107,72 @@
             <p class="text-white">Resultados Intermedios</p>
         </div>
         {% endif %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% elif not estrategia.has_barreras %} dimmed {% endif %}">
+
+        <!-- Barreras -->
+        {% if objetivo.has_barreras %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:barreras' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Barreras" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Barreras</p>
+            </a>
+        </div>
+        {% elif objetivo.me_next == 'barreras' %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:barreras_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Barreras" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Barreras</p>
+            </a>
+        </div>
+        {% else %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% elif not objetivo.has_resultadosintermedios %} dimmed {% endif %}">
             <img alt="Barreras" src="{% static 'images/m02.svg' %}">
             <p class="text-white">Barreras</p>
         </div>
-        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% elif not estrategia.has_factoreshabilitantes %} dimmed {% endif %}">
+        {% endif %}
+
+        <!-- Factores Habilitantes -->
+        {% if objetivo.has_factoreshabilitantes %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:factoreshabilitantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Factores Habilitantes</p>
+            </a>
+        </div>
+        {% elif objetivo.me_next == 'factoreshabilitantes' %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:factoreshabilitantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Factores Habilitantes</p>
+            </a>
+        </div>
+        {% else %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% elif not objetivo.has_barreras %} dimmed {% endif %}">
             <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
             <p class="text-white">Factores Habilitantes</p>
         </div>
-        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% elif not estrategia.has_actoresrelevantes %} dimmed {% endif %}">
+        {% endif %}
+
+
+        <!-- Actores Relevantes -->
+        {% if objetivo.has_actoresrelevantes %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:actoresrelevantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Actores Relevantes</p>
+            </a>
+        </div>
+        {% elif objetivo.me_next == 'actoresrelevantes' %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:actoresrelevantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
+                <p class="text-white">Actores Relevantes</p>
+            </a>
+        </div>
+        {% else %}
+        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% elif not objetivo.has_factoreshabilitantes %} dimmed {% endif %}">
             <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
             <p class="text-white">Actores Relevantes</p>
         </div>
+        {% endif %}
     </div>
 </div>

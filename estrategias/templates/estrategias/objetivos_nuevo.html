@@ -2,14 +2,12 @@
 
 {% load staticfiles %}
 
-{% load crispy_forms_tags %}
-
 {% block navbar %}
     {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-objetivos-titulo">
+<section class="metodologia default-p-top" id="section-objetivo-titulo">
     <div class="container">
         <div class="row">
             <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
@@ -18,25 +16,29 @@
     </div>
 </section>
 
-<section class="flujo-estrategia flujo-estrategia-show" id="section-objetivos-objetivos">
+<section class="flujo-estrategia flujo-estrategia-edit" id="section-objetivo-objetivo-edit">
     <div class="container">
         <div class="row">
             <div class="col-md-2 text-center">
-                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+                <img alt="objetivo" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Objetivos</h3>
-                <a href='{% url "estrategias:objetivos_nuevo" pk=estrategia.id %}' class="" role="">Agregar</a>
             </div>
-            <div class="col-md-7 col-md-offset-1">                
-                {% for objetivo in estrategia.objetivos.all %}
+
+            <div class="col-md-7 col-md-offset-1">
                 <div class="row">
-                    <p><a href='{% url "estrategias:resultadosintermedios" pk=estrategia.id %}?oid={{objetivo.id}}'>{{objetivo.objetivo}}</a></p>
-                    <a href='#' class="" role="">Editar</a> / 
-                    <a href='#' class="" role="">Borrar</a>
+                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut risus vel enim faucibus faucibus non
+                    non nulla. Donec nec dignissim enim. Nam dolor metus, fermentum sit amet purus eu, sodales ullamcorper
+                    nisl. Mauris molestie tortor non neque auctor rutrum. Class aptent taciti sociosqu ad litora torquent
+                    per conubia nostra, per inceptos himenaeos.</p>
                 </div>
+
                 <div class="row spacer30"></div>
-                {% endfor %}
+
+                <div class="row">
+                    {% include 'estrategias/forms/objetivo_nuevo_form.html' %}
+                </div>
             </div>
         </div>
         <div class="row spacer60"></div>

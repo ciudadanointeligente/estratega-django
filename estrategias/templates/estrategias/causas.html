@@ -30,19 +30,8 @@
             </div>
             {% if estrategia.has_causas %}
             <div class="col-md-7 col-md-offset-1">
-                <div class="row">
-                    <p>{{estrategia.causas}}</p>
-                </div>
-
-                <div class="row spacer30"></div>
-
-                <div class="row pull-right">
-                    
-                </div>
-            </div>
-            {% else %}
-            <div class="col-md-7 text-center">
-                <a href='{% url "estrategias:causas_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Defina las causas</a>
+                <p>{{estrategia.causas}}</p>
+                <div class="spacer30"></div>
             </div>
             {% endif %}
         </div>

@@ -113,3 +113,18 @@ class EstrategiaResultadosIntermediosForm(forms.ModelForm):
         )  
 
     resultadosintermedios = forms.TextInput()
+
+
+class EstrategiaBarrerasForm(forms.ModelForm):
+    class Meta:
+        model = Objetivo
+        fields = ('barreras',)
+
+    def __init__(self, *args, **kwargs):
+        super(EstrategiaBarrerasForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+                                Field('barreras', css_class='input-xlarge'),
+        )  
+
+    barreras = forms.TextInput()

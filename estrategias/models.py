@@ -39,22 +39,41 @@ class Estrategia(models.Model):
         else:
             return True
 
-    def has_resultadosintermedios(self):
-        objetivo = self.get_objetivo_prioritario()
+    def has_resultadosintermedios(self, objetivo=None):
+        if objetivo is None:
+            objetivo = self.get_objetivo_prioritario()
 
         if objetivo and objetivo.resultadosintermedios != '':
             return True
         else:
             return False
 
-    def has_factoreshabilitantes(self):
-        return False
+    def has_factoreshabilitantes(self, objetivo=None):
+        if objetivo is None:
+            objetivo = self.get_objetivo_prioritario()
 
-    def has_barreras(self):
-        return False
+        if objetivo and objetivo.factoreshabilitantes != '':
+            return True
+        else:
+            return False
 
-    def has_actoresrelevantes(self):
-        return False
+    def has_barreras(self, objetivo=None):
+        if objetivo is None:
+            objetivo = self.get_objetivo_prioritario()
+
+        if objetivo and objetivo.barreras != '':
+            return True
+        else:
+            return False
+
+    def has_actoresrelevantes(self, objetivo=None):
+        if objetivo is None:
+            objetivo = self.get_objetivo_prioritario()
+
+        if objetivo and objetivo.actoresrelevantes != '':
+            return True
+        else:
+            return False
 
     # Este metodo chequea el contenido de la estrategia y
     # devuelve un texto que indica que parte de la estrategia
@@ -100,6 +119,53 @@ class Objetivo(models.Model):
     resultadosintermedios = models.TextField()
     factoreshabilitantes = models.TextField()
     barreras = models.TextField()
+    actoresrelevantes = models.TextField()
 
     def __str__(self):
         return self.objetivo
+
+    def has_objetivo(self):
+        if self.objetivo != '':
+            return True
+        else:
+            return False
+
+    def has_resultadosintermedios(self):
+        if self.resultadosintermedios != '':
+            return True
+        else:
+            return False
+
+    def has_factoreshabilitantes(self):
+        if self.factoreshabilitantes != '':
+            return True
+        else:
+            return False
+
+    def has_barreras(self):
+        if self.barreras != '':
+            return True
+        else:
+            return False
+
+    def has_actoresrelevantes(self):
+        if self.actoresrelevantes != '':
+            return True
+        else:
+            return False
+
+    def me_next(self):
+        if not self.has_objetivo():
+            me_next = 'objetivos'
+        elif not self.has_resultadosintermedios():
+            me_next = 'resultadosintermedios'
+        elif not self.has_barreras():
+            me_next = 'barreras'
+        elif not self.has_factoreshabilitantes():
+            me_next = 'factoreshabilitantes'
+        elif not self.has_actoresrelevantes():
+            me_next = 'actoresrelevantes'
+        else:
+            me_next = False
+
+        return me_next
