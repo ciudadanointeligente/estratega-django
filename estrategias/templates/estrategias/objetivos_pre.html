@@ -8,7 +8,7 @@
 <script>
     // redirect to google after 3 seconds
     window.setTimeout(function() {
-        window.location.href = '{% url "estrategias:objetivos_edit" pk=estrategia.id oid=estrategia.get_objetivo_prioritario.id %}';
+        window.location.href = '{% url "estrategias:objetivos_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}';
     }, 3000);
     </script>
 {% endblock %}

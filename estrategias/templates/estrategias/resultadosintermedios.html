@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-2 text-right">
                 <h3>Resultados Intermedios</h3>
-                <a href="{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id oid=objetivo.id %}" class="" role="">Editar</a>
+                <a href='{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id oid=objetivo.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Editar</a>
             </div>
             {% if estrategia.has_resultadosintermedios %}
             <div class="col-md-7 col-md-offset-1">
@@ -42,7 +42,7 @@
             </div>
             {% else %}
             <div class="col-md-7 text-center">
-                <a href="{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id oid=objetivo.id %}" class="" role="">Defina su problemática</a>
+                <a href='{% url "estrategias:resultadosintermedios_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Defina su problemática</a>
             </div>
             {% endif %}
         </div>

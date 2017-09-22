@@ -66,7 +66,7 @@ class NuevaEstrategiaView(LoginRequiredMixin, generic.edit.FormView):
         estrategia.objetivos.add(objetivo)
         estrategia.save()
 
-        return redirect('/estrategias/%s/problematica' % estrategia.id)
+        return redirect(reverse('estrategias:problematica', kwargs={'pk': estrategia.id}))
 
 
 # Problematica
@@ -79,8 +79,14 @@ class ProblematicaView(LoginRequiredMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         if self.object.problematica == '':
-            return redirect('/estrategias/%s/problematica/edit' % self.object.id)
+            return redirect(reverse('estrategias:problematica_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
         else:
             return super(ProblematicaView, self).get(request, *args, **kwargs)
 
@@ -93,10 +99,24 @@ class ProblematicaEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin,
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(ProblematicaEditView, self).post(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(ProblematicaEditView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -113,9 +133,9 @@ class ProblematicaEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin,
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:causas_pre', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:causas_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
-            return redirect(reverse('estrategias:problematica', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:problematica', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
 
     def get_initial(self):
         initial = super(ProblematicaEditView, self).get_initial()
@@ -140,8 +160,14 @@ class CausasView(LoginRequiredMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         if self.object.causas == '':
-            return redirect('/estrategias/%s/causas/edit' % self.object.id)
+            return redirect(reverse('estrategias:causas_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
         else:
             return super(CausasView, self).get(request, *args, **kwargs)
 
@@ -154,10 +180,24 @@ class CausasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gener
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(CausasEditView, self).post(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(CausasEditView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -174,9 +214,9 @@ class CausasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gener
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:solucionpolitica_pre', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:solucionpolitica_pre', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
         else:
-            return redirect(reverse('estrategias:causas', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:causas', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
 
     def get_initial(self):
         initial = super(CausasEditView, self).get_initial()
@@ -201,8 +241,14 @@ class SolucionPoliticaView(LoginRequiredMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         if self.object.solucionpolitica == '':
-            return redirect('/estrategias/%s/solucionpolitica/edit' % self.object.id)
+            return redirect(reverse('estrategias:solucionpolitica_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
         else:
             return super(SolucionPoliticaView, self).get(request, *args, **kwargs)
 
@@ -215,10 +261,24 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(SolucionPoliticaEditView, self).post(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
         return super(SolucionPoliticaEditView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -235,9 +295,9 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:objetivos_pre', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:objetivos_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
-            return redirect(reverse('estrategias:solucionpolitica', kwargs={'pk': self.object.pk}))
+            return redirect(reverse('estrategias:solucionpolitica', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
 
     def get_initial(self):
         initial = super(SolucionPoliticaEditView, self).get_initial()
@@ -268,12 +328,6 @@ class ObjetivosView(LoginRequiredMixin, generic.DetailView):
             return super(ObjetivosView, self).get(request, *args, **kwargs)
 
 
-#class ObjetivosDetailView(LoginRequiredMixin, generic.DetailView):
-    # XXX: Pendiente
-#    model = Objetivo
-#    template_name = 'estrategias/objetivos_detail.html'
-
-
 class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):
     form_class = EstrategiaObjetivoForm
     template_name = 'estrategias/objetivos_edit.html'
@@ -284,10 +338,10 @@ class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMix
         self.object = self.get_object()
         
         try:
-            id_objetivo = kwargs['oid']
+            id_objetivo = self.request.POST['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = None
+            self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ObjetivosDetailEditView, self).post(request, *args, **kwargs)
 
@@ -295,10 +349,10 @@ class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMix
         self.object = self.get_object()
 
         try:
-            id_objetivo = kwargs['oid']
+            id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = None
+            self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ObjetivosDetailEditView, self).post(request, *args, **kwargs)
 
@@ -317,13 +371,17 @@ class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMix
         self.objetivo.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
-            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
 
     def get_initial(self):
         initial = super(ObjetivosDetailEditView, self).get_initial()
-        initial['objetivo'] = self.objetivo.objetivo
+        
+        if 'oid' in self.request.GET:
+            initial['objetivo'] = self.request.GET['oid']
+        else:
+            initial['objetivo'] = self.get_object().get_objetivo_prioritario().id
 
         return initial
 
@@ -342,13 +400,13 @@ class ResultadosIntermediosView(LoginRequiredMixin, generic.DetailView):
         self.object = self.get_object()
 
         try:
-            id_objetivo = kwargs['oid']
+            id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = None
+            self.objetivo = self.object.get_objetivo_prioritario()
 
         if not self.object.has_resultadosintermedios():
-            return redirect(reverse('estrategias:resultadosintermedios_edit', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+            return redirect(reverse('estrategias:resultadosintermedios_edit', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
             return super(ResultadosIntermediosView, self).get(request, *args, **kwargs)
 
@@ -363,10 +421,10 @@ class ResultadosIntermediosEditView(LoginRequiredMixin, generic.detail.SingleObj
         self.object = self.get_object()
 
         try:
-            id_objetivo = kwargs['oid']
+            id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = None
+            self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ResultadosIntermediosEditView, self).post(request, *args, **kwargs)
 
@@ -374,10 +432,10 @@ class ResultadosIntermediosEditView(LoginRequiredMixin, generic.detail.SingleObj
         self.object = self.get_object()
 
         try:
-            id_objetivo = kwargs['oid']
+            id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = None
+            self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ResultadosIntermediosEditView, self).post(request, *args, **kwargs)
 
@@ -396,9 +454,9 @@ class ResultadosIntermediosEditView(LoginRequiredMixin, generic.detail.SingleObj
         self.objetivo.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+            return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
-            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk, 'oid': self.objetivo.id}))
+            return redirect(reverse('estrategias:resultadosintermedios', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
 
     def get_initial(self):
         initial = super(ResultadosIntermediosEditView, self).get_initial()

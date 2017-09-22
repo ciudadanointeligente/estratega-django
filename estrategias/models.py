@@ -34,13 +34,18 @@ class Estrategia(models.Model):
     def has_objetivos(self):
         objetivo = self.get_objetivo_prioritario()
 
-        if (objetivo is None) or (objetivo == ''):
+        if (objetivo is None) or (objetivo.objetivo == ''):
             return False
         else:
             return True
 
     def has_resultadosintermedios(self):
-        return False
+        objetivo = self.get_objetivo_prioritario()
+
+        if objetivo and objetivo.resultadosintermedios != '':
+            return True
+        else:
+            return False
 
     def has_factoreshabilitantes(self):
         return False

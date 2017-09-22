@@ -245,8 +245,11 @@ ul.dropdown-menu.dropdown-menu-button.thin{
 
 /* Flujo Estrategia (edit) */
 
+section.flujo-estrategia-edit {
+  padding-top: 30px;
+}
+
 section.flujo-estrategia-edit h3 {
-  font-weight: 500;
   margin: 0;
   padding: 0;
 }
@@ -257,6 +260,10 @@ section.flujo-estrategia-edit p {
 
 
 /* Flujo Estrategia (show) */
+
+section.flujo-estrategia-show {
+  padding-top: 30px;
+}
 
 section.flujo-estrategia-show h3 {
   margin: 0;
@@ -468,65 +475,61 @@ div.row-item-metodologia img.check-mark {
 }
 
 
-/* Section Specific (section-problematica-problematica) */
-
-#section-problematica-problematica {
-    padding-top: 30px;
-}
-
-
 /* Section Specific (section-problematica-problematica-edit) */
-
-#section-problematica-problematica-edit {
-    padding-top: 30px;
-}
 
 #section-problematica-problematica-edit form label {
     display: none;
 }
 
 
-/* Section Specific (section-causas-causas) */
-
-#section-causas-causas {
-    padding-top: 30px;
-}
-
-
-/* Section Specific (section-problematica-problematica-edit) */
-
-#section-causas-causas-edit {
-    padding-top: 30px;
-}
+/* Section Specific (section-causas-causas-edit) */
 
 #section-causas-causas-edit form label {
     display: none;
 }
 
 
-/* Section Specific (section-causas-causas) */
-
-#section-causas-causas {
-    padding-top: 30px;
-}
-
-
 /* Section Specific (section-solucionpolitica-solucionpolitica-edit) */
-
-#section-solucionpolitica-solucionpolitica-edit {
-    padding-top: 30px;
-}
 
 #section-solucionpolitica-solucionpolitica-edit form label {
     display: none;
 }
 
 
-/* Section Specific (section-solucionpolitica-solucionpolitica) */
+/* Section Specific (section-objetivos-objetivos-edit) */
 
-#section-solucionpolitica-solucionpolitica {
-    padding-top: 30px;
+#section-objetivos-objetivos-edit form label {
+  display: none;
 }
+
+
+/* Section Specific (section-resultadosintermedios-resultadosintermedios-edit) */
+
+#section-resultadosintermedios-resultadosintermedios-edit form label {
+  display: none;
+}
+
+
+/* Section Specific (section-barreras-barreras-edit) */
+
+#section-barreras-barreras-edit form label {
+  display: none;
+}
+
+
+/* Section Specific (section-factoreshabilitantes-factoreshabilitantes-edit) */
+
+#section-factoreshabilitantes-factoreshabilitantes-edit form label {
+  display: none;
+}
+
+
+/* Section Specific (section-actoresrelevantes-actoresrelevantes-edit) */
+
+#section-actoresrelevantes-actoresrelevantes-edit form label {
+  display: none;
+}
+
 
 
 /* Section Specific (other sections)*/
@@ -541,6 +544,7 @@ div.row-item-metodologia img.check-mark {
 }
 
 
+/* Other Things */
 
 .form-estrategia div label {
     font-size: 20px;
