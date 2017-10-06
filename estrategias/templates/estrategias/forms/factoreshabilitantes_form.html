@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+
+<form action="{% url "estrategias:factoreshabilitantes_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}" method="post" accept-charset="utf-8">
+    {{ form | crispy }}
+    {% csrf_token %}
+    <div class="text-right">
+        <input class="btn btn-default" type="submit" value="Continuar!">
+    </div>
+    {% if empezovacio %}
+    <input class="hidden" name="empezovacio" value="true">
+    {% endif %}
+</form>

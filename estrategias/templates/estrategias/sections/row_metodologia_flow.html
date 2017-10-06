@@ -1,178 +1,186 @@
 {% load staticfiles %}
 
-<div class="row row-metodologia row-metodologia-flow">
-    <div class="col-md-6 nopadding">
-        <!-- Problemática -->        
-        {% if estrategia.has_problematica %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'problematica' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:problematica' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
+<div class="container">
+    <div class="row">
+        <a href='{% url "estrategias:estrategia" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="">
+            <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
+        </a>
+    </div>
+
+    <div class="row row-metodologia row-metodologia-flow">
+        <div class="col-md-6 nopadding">
+            <!-- Problemática -->        
+            {% if estrategia.has_problematica %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'problematica' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:problematica' estrategia.id %}">
+                    <img alt="Problemática" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Problemática</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'problematica' %} highlighted {% endif %}">
+            <a href="{% url 'estrategias:problematica_edit' estrategia.id %}">
                 <img alt="Problemática" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Problemática</p>
             </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'problematica' %} highlighted {% endif %}">
-        <a href="{% url 'estrategias:problematica_edit' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
-            <img alt="Problemática" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Problemática</p>
-        </a>
-        </div>
-        {% endif %}
-        
-        <!-- Causas -->
-        {% if estrategia.has_causas %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:causas' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
+            </div>
+            {% endif %}
+            
+            <!-- Causas -->
+            {% if estrategia.has_causas %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:causas' estrategia.id %}">
+                    <img alt="Causas" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Causas</p>
+                </a>
+            </div>
+            {% elif estrategia.me_next == 'causas' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:causas_edit' estrategia.id %}">
+                    <img alt="Causas" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Causas</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% elif not estrategia.has_problematica %} dimmed {% endif %}">
                 <img alt="Causas" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Causas</p>
-            </a>
-        </div>
-        {% elif estrategia.me_next == 'causas' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:causas_edit' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
-                <img alt="Causas" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Causas</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'causas' %} highlighted {% elif not estrategia.has_problematica %} dimmed {% endif %}">
-            <img alt="Causas" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Causas</p>
-        </div>
-        {% endif %}
-
-        <!-- Solución Política -->
-        {% if estrategia.has_solucionpolitica %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:solucionpolitica' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
+            </div>
+            {% endif %}
+    
+            <!-- Solución Política -->
+            {% if estrategia.has_solucionpolitica %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:solucionpolitica' estrategia.id %}">
+                    <img alt="Solución Política" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Solución Política</p>
+                </a>
+            </div>
+            {% elif estrategia.me_next == 'solucionpolitica' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:solucionpolitica_edit' estrategia.id %}">
+                    <img alt="Solución Política" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Solución Política</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% elif not estrategia.has_causas %} dimmed {% endif %}">
                 <img alt="Solución Política" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Solución Política</p>
-            </a>
-        </div>
-        {% elif estrategia.me_next == 'solucionpolitica' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:solucionpolitica_edit' estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}">
-                <img alt="Solución Política" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Solución Política</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'solucionpolitica' %} highlighted {% elif not estrategia.has_causas %} dimmed {% endif %}">
-            <img alt="Solución Política" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Solución Política</p>
-        </div>
-        {% endif %}
-
-        <!-- Objetivos -->
-        {% if estrategia.has_objetivos %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:objetivos' estrategia.id %}">
+            </div>
+            {% endif %}
+    
+            <!-- Objetivos -->
+            {% if estrategia.has_objetivos %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:objetivos' estrategia.id %}">
+                    <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Objetivos</p>
+                </a>
+            </div>
+            {% elif estrategia.me_next == 'objetivos' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:objetivos_edit' pk=estrategia.id %}?oid={{estrategia.get_objetivo_prioritario.id}}">
+                    <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Objetivos</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% elif not estrategia.has_solucionpolitica %} dimmed {% endif %}">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Objetivos</p>
-            </a>
+            </div>
+            {% endif %}
         </div>
-        {% elif estrategia.me_next == 'objetivos' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:objetivos_edit' pk=estrategia.id %}?oid={{estrategia.get_objetivo_prioritario.id}}">
-                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Objetivos</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'objetivos' %} highlighted {% elif not estrategia.has_solucionpolitica %} dimmed {% endif %}">
-            <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Objetivos</p>
-        </div>
-        {% endif %}
-    </div>
-    <div class="col-md-6 nopadding">
-        <!-- Resultados Intermedios -->
-        {% if objetivo.has_resultadosintermedios %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:resultadosintermedios' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+        <div class="col-md-6 nopadding">
+            <!-- Resultados Intermedios -->
+            {% if objetivo.has_resultadosintermedios %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:resultadosintermedios' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Resultados Intermedios</p>
+                </a>
+            </div>
+            {% elif objetivo.me_next == 'resultadosintermedios' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:resultadosintermedios_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Resultados Intermedios</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% else %} dimmed {% endif %}">
                 <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Resultados Intermedios</p>
-            </a>
-        </div>
-        {% elif objetivo.me_next == 'resultadosintermedios' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:resultadosintermedios_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
-                <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Resultados Intermedios</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'resultadosintermedios' %} highlighted {% elif not estrategia.has_barreras %} dimmed {% endif %}">
-            <img alt="Resultados Intermedios" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Resultados Intermedios</p>
-        </div>
-        {% endif %}
-
-        <!-- Barreras -->
-        {% if objetivo.has_barreras %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:barreras' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+            </div>
+            {% endif %}
+    
+            <!-- Barreras -->
+            {% if objetivo.has_barreras %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:barreras' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Barreras" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Barreras</p>
+                </a>
+            </div>
+            {% elif objetivo.me_next == 'barreras' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:barreras_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Barreras" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Barreras</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% elif not objetivo.has_resultadosintermedios %} dimmed {% endif %}">
                 <img alt="Barreras" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Barreras</p>
-            </a>
-        </div>
-        {% elif objetivo.me_next == 'barreras' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:barreras_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
-                <img alt="Barreras" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Barreras</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'barreras' %} highlighted {% elif not objetivo.has_resultadosintermedios %} dimmed {% endif %}">
-            <img alt="Barreras" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Barreras</p>
-        </div>
-        {% endif %}
-
-        <!-- Factores Habilitantes -->
-        {% if objetivo.has_factoreshabilitantes %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:factoreshabilitantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+            </div>
+            {% endif %}
+    
+            <!-- Factores Habilitantes -->
+            {% if objetivo.has_factoreshabilitantes %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:factoreshabilitantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Factores Habilitantes</p>
+                </a>
+            </div>
+            {% elif objetivo.me_next == 'factoreshabilitantes' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:factoreshabilitantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Factores Habilitantes</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% elif not objetivo.has_barreras %} dimmed {% endif %}">
                 <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Factores Habilitantes</p>
-            </a>
-        </div>
-        {% elif objetivo.me_next == 'factoreshabilitantes' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:factoreshabilitantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
-                <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Factores Habilitantes</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'factoreshabilitantes' %} highlighted {% elif not objetivo.has_barreras %} dimmed {% endif %}">
-            <img alt="Factores Habilitantes" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Factores Habilitantes</p>
-        </div>
-        {% endif %}
-
-
-        <!-- Actores Relevantes -->
-        {% if objetivo.has_actoresrelevantes %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:actoresrelevantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+            </div>
+            {% endif %}
+    
+    
+            <!-- Actores Relevantes -->
+            {% if objetivo.has_actoresrelevantes %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:actoresrelevantes' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Actores Relevantes</p>
+                </a>
+            </div>
+            {% elif objetivo.me_next == 'actoresrelevantes' %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
+                <a href="{% url 'estrategias:actoresrelevantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
+                    <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
+                    <p class="text-white">Actores Relevantes</p>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% elif not objetivo.has_factoreshabilitantes %} dimmed {% endif %}">
                 <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
                 <p class="text-white">Actores Relevantes</p>
-            </a>
+            </div>
+            {% endif %}
         </div>
-        {% elif objetivo.me_next == 'actoresrelevantes' %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% endif %}">
-            <a href="{% url 'estrategias:actoresrelevantes_edit' pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}">
-                <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
-                <p class="text-white">Actores Relevantes</p>
-            </a>
-        </div>
-        {% else %}
-        <div class="col-md-3 text-center arrow {% if highlighted == 'actoresrelevantes' %} highlighted {% elif not objetivo.has_factoreshabilitantes %} dimmed {% endif %}">
-            <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
-            <p class="text-white">Actores Relevantes</p>
-        </div>
-        {% endif %}
     </div>
 </div>

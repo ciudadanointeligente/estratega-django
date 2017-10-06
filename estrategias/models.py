@@ -75,6 +75,12 @@ class Estrategia(models.Model):
         else:
             return False
 
+    def has_varios_objetivos(self):
+        if len(self.objetivos.all()) > 1:
+            return True
+        else:
+            return False
+
     # Este metodo chequea el contenido de la estrategia y
     # devuelve un texto que indica que parte de la estrategia
     # es la que debiera ser completada en el siguiente paso.
@@ -100,7 +106,7 @@ class Estrategia(models.Model):
         elif not self.has_actoresrelevantes():
             me_next = 'actoresrelevantes'
         else:
-            me_next = False
+            me_next = 'estrategia'
 
         return me_next
 

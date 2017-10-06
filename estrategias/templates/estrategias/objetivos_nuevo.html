@@ -7,14 +7,10 @@
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-objetivo-titulo">
-    <div class="container">
-        <div class="row">
-            <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
-        </div>
-        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="objetivos" %}
-    </div>
+<section class="metodologia default-p-top" id="section-objetivos-titulo">
+    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="objetivos" %}
 </section>
+    
 
 <section class="flujo-estrategia flujo-estrategia-edit" id="section-objetivo-objetivo-edit">
     <div class="container">

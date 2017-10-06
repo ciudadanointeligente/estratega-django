@@ -10,12 +10,7 @@
 
 {% block content %}
 <section class="metodologia default-p-top" id="section-barreras-titulo">
-    <div class="container">
-        <div class="row">
-            <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
-        </div>
-        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="barreras" %}
-    </div>
+    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="barreras" %}
 </section>
 
 <section class="flujo-estrategia flujo-estrategia-show" id="section-barreras-barreras">
@@ -26,7 +21,7 @@
             </div>
             <div class="col-md-2 text-right">
                 <h3>Barreras</h3>
-                <a href='{% url "estrategias:barreras_edit" pk=estrategia.id oid=objetivo.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Editar</a>
+                <a href='{% url "estrategias:barreras_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="" role="">Editar</a>
             </div>
             {% if objetivo.has_barreras %}
             <div class="col-md-7 col-md-offset-1">

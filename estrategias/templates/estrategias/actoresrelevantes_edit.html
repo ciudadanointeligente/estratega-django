@@ -7,18 +7,18 @@
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-causas-titulo">
-    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="causas" %}
+<section class="metodologia default-p-top" id="section-actoresrelevantes-titulo">
+    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="actoresrelevantes" %}
 </section>
 
-<section class="flujo-estrategia flujo-estrategia-edit" id="section-causas-causas-edit">
+<section class="flujo-estrategia flujo-estrategia-edit" id="section-actoresrelevantes-actoresrelevantes-edit">
     <div class="container">
         <div class="row">
             <div class="col-md-2 text-center">
-                <img alt="Causas" src="{% static 'images/m02.svg' %}">
+                <img alt="Actores Relevantes" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
-                <h3>Causas</h3>
+                <h3>Actores Relevantes</h3>
             </div>
 
             <div class="col-md-7 col-md-offset-1">
@@ -32,7 +32,7 @@
                 <div class="row spacer30"></div>
 
                 <div class="row">
-                    {% include 'estrategias/forms/causas_form.html' %}
+                    {% include 'estrategias/forms/actoresrelevantes_form.html' %}
                 </div>
             </div>
         </div>

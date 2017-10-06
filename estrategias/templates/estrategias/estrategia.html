@@ -1,5 +1,133 @@
+{% extends "base_generic.html" %}
+
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'estrategias/style.css' %}" />
+{% load crispy_forms_tags %}
 
-<a href="{% url 'estrategias:detail' estrategia.id %}">{{ estrategia.titulo }}</a>
+{% block navbar %}
+    {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
+{% endblock %} 
+
+{% block content %}
+<section class="metodologia default-p-top" id="section-actoresrelevantes-titulo">
+    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="all" %}
+</section>
+
+<section id="section-estrategia-estrategia">
+    <div class="container">
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Problemática</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{estrategia.problematica}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Causas</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{estrategia.causas}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>        
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Solución Política</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{estrategia.solucionpolitica}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>        
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Objetivos</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{objetivo.objetivo}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Resultados Intermedios</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{objetivo.resultadosintermedios}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Barreras</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{objetivo.barreras}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Factores Habilitantes</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{objetivo.factoreshabilitantes}}</p>
+            </div>
+        </div>
+
+        <div class="row spacer30"></div>
+
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
+            </div>
+            <div class="col-md-2 text-right">
+                <h3>Actores Relevantes</h3>
+            </div>
+            <div class="col-md-7">
+                <p>{{objetivo.actoresrelevantes}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

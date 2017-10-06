@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+{% block redirect %}
+<script>
+    // redirect to google after 3 seconds
+    window.setTimeout(function() {
+        window.location.href = '{% url "estrategias:actoresrelevantes_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}';
+    }, 3000);
+    </script>
+{% endblock %}
+
+{% block navbar %}
+    {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
+{% endblock %} 
+
+{% block content %}
+<section class="metodologia default-p-top" id="section-actoresrelevantes-titulo">
+    <div class="container">
+        {% include "estrategias/sections/row_item_metodologia_check.html" with item="factoreshabilitantes" %}
+    </div>
+    <div class="spacer60"></div>
+</section>
+
+<section class="flujo-estrategia flujo-estrategia-pre" id="section-actoresrelevantes-pre">
+    <div class="container">
+        <div class="row">
+            <div class="spacer30"></div>
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1>Vamos ahora a los Actores Relevantes</h1>
+            </div>
+        </div>
+        <div class="spacer60"></div>
+    </div>
+</section>
+{% endblock %}

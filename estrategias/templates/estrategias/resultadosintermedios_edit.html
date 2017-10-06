@@ -8,12 +8,7 @@
 
 {% block content %}
 <section class="metodologia default-p-top" id="section-resultadosintermedios-titulo">
-    <div class="container">
-        <div class="row">
-            <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo }}</h1>
-        </div>
-        {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="resultadosintermedios" %}
-    </div>
+    {% include "estrategias/sections/row_metodologia_flow.html" with highlighted="resultadosintermedios" %}
 </section>
 
 <section class="flujo-estrategia flujo-estrategia-edit" id="section-resultadosintermedios-resultadosintermedios-edit">

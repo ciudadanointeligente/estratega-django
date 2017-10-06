@@ -45,13 +45,21 @@ h3 {
 }
 
 img {
-/*     display: block; */
     margin: 0 auto;
 }
 
 input, button, select, textarea {
   color: #7f8c8c;
 }
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+
+
 
 section.default-p-top {
   padding-top: 70px;

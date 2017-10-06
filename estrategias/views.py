@@ -13,7 +13,9 @@ from .forms import EstrategiaTituloForm,\
                    EstrategiaSolucionPoliticaForm,\
                    EstrategiaObjetivoForm,\
                    EstrategiaResultadosIntermediosForm,\
-                   EstrategiaBarrerasForm
+                   EstrategiaBarrerasForm,\
+                   EstrategiaFactoresHabilitantesForm,\
+                   EstrategiaActoresRelevantesForm
 
 
 def index(request):
@@ -45,6 +47,48 @@ class MisEstrategiasView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         qs = super(MisEstrategiasView, self).get_queryset()
         return qs.filter(dueno=self.request.user)
+
+
+# Estrategia
+
+class EstrategiaView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/estrategia.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        if self.object.me_next() == 'estrategia':
+            return super(EstrategiaView, self).get(request, *args, **kwargs)
+        elif self.object.me_next() == 'actoresrelevantes':
+            return redirect(reverse('estrategias:actoresrelevantes_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        elif self.object.me_next() == 'factoreshabilitantes':
+            return redirect(reverse('estrategias:factoreshabilitantes_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        elif self.object.me_next() == 'barreras':
+            return redirect(reverse('estrategias:barreras_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        elif self.object.me_next() == 'resultadosintermedios':
+            return redirect(reverse('estrategias:resultadosintermedios_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        elif self.object.me_next() == 'objetivos':
+            return redirect(reverse('estrategias:objetivos_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        elif self.object.me_next() == 'solucionpolitica':
+            return redirect(reverse('estrategias:solucionpolitica', kwargs={'pk': self.object.id}))
+        elif self.object.me_next() == 'causas':
+            return redirect(reverse('estrategias:causas', kwargs={'pk': self.object.id}))
+        elif self.object.me_next() == 'problematica':
+            return redirect(reverse('estrategias:problematica', kwargs={'pk': self.object.id}))
+
+    def get_context_data(self, **kwargs):
+        context = super(EstrategiaView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        return context
 
 
 # Nueva Estrategia
@@ -84,10 +128,13 @@ class ProblematicaView(LoginRequiredMixin, generic.DetailView):
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         if self.object.problematica == '':
-            return redirect(reverse('estrategias:problematica_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:problematica_edit', kwargs={'pk': self.object.id}))
         else:
             return super(ProblematicaView, self).get(request, *args, **kwargs)
 
@@ -112,7 +159,10 @@ class ProblematicaEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin,
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ProblematicaEditView, self).post(request, *args, **kwargs)
 
@@ -123,7 +173,10 @@ class ProblematicaEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin,
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(ProblematicaEditView, self).post(request, *args, **kwargs)
 
@@ -143,9 +196,9 @@ class ProblematicaEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin,
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:causas_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:causas_pre', kwargs={'pk': self.object.pk}))
         else:
-            return redirect(reverse('estrategias:problematica', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:problematica', kwargs={'pk': self.object.pk}))
 
     def get_initial(self):
         initial = super(ProblematicaEditView, self).get_initial()
@@ -174,10 +227,13 @@ class CausasView(LoginRequiredMixin, generic.DetailView):
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         if self.object.causas == '':
-            return redirect(reverse('estrategias:causas_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:causas_edit', kwargs={'pk': self.object.id}))
         else:
             return super(CausasView, self).get(request, *args, **kwargs)
 
@@ -202,7 +258,10 @@ class CausasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gener
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(CausasEditView, self).post(request, *args, **kwargs)
 
@@ -213,7 +272,10 @@ class CausasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gener
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(CausasEditView, self).post(request, *args, **kwargs)
 
@@ -233,9 +295,9 @@ class CausasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gener
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:solucionpolitica_pre', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:solucionpolitica_pre', kwargs={'pk': self.object.id}))
         else:
-            return redirect(reverse('estrategias:causas', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:causas', kwargs={'pk': self.object.id}))
 
     def get_initial(self):
         initial = super(CausasEditView, self).get_initial()
@@ -264,10 +326,13 @@ class SolucionPoliticaView(LoginRequiredMixin, generic.DetailView):
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         if self.object.solucionpolitica == '':
-            return redirect(reverse('estrategias:solucionpolitica_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:solucionpolitica_edit', kwargs={'pk': self.object.id}))
         else:
             return super(SolucionPoliticaView, self).get(request, *args, **kwargs)
 
@@ -292,7 +357,10 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(SolucionPoliticaEditView, self).post(request, *args, **kwargs)
 
@@ -303,7 +371,10 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
             id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
-            self.objetivo = self.object.get_objetivo_prioritario()
+            if self.object.has_varios_objetivos():
+                self.objetivo = None
+            else:
+                self.objetivo = self.object.get_objetivo_prioritario()
 
         return super(SolucionPoliticaEditView, self).post(request, *args, **kwargs)
 
@@ -323,9 +394,9 @@ class SolucionPoliticaEditView(LoginRequiredMixin, generic.detail.SingleObjectMi
         estrategia.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:objetivos_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:objetivos_pre', kwargs={'pk': self.object.pk}))
         else:
-            return redirect(reverse('estrategias:solucionpolitica', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:solucionpolitica', kwargs={'pk': self.object.pk}))
 
     def get_initial(self):
         initial = super(SolucionPoliticaEditView, self).get_initial()
@@ -596,13 +667,13 @@ class BarrerasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gen
 
         context['objetivo'] = self.objetivo
 
-        if self.objetivo == "":
+        if self.objetivo.barreras == "":
             context['empezovacio'] = True
 
         return context
 
     def form_valid(self, form):
-        self.objetivo.resultadosintermedios = form.instance.resultadosintermedios
+        self.objetivo.barreras = form.instance.barreras
         self.objetivo.save()
 
         if 'empezovacio' in self.request.POST:
@@ -614,5 +685,179 @@ class BarrerasEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, gen
         initial = super(BarrerasEditView, self).get_initial()
 
         initial['barreras'] = self.objetivo.barreras
+
+        return initial
+
+
+class FactoresHabilitantesPreView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/factoreshabilitantes_pre.html'
+    login_url = '/login'
+
+
+class FactoresHabilitantesView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/factoreshabilitantes.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        if not self.object.has_factoreshabilitantes(objetivo=self.objetivo):
+            return redirect(reverse('estrategias:factoreshabilitantes_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        else:
+            return super(FactoresHabilitantesView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(FactoresHabilitantesView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        return context
+
+
+class FactoresHabilitantesEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):
+    form_class = EstrategiaFactoresHabilitantesForm
+    template_name = 'estrategias/factoreshabilitantes_edit.html'
+    model = Estrategia
+    login_url = '/login'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        return super(FactoresHabilitantesEditView, self).post(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        return super(FactoresHabilitantesEditView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(FactoresHabilitantesEditView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        if self.objetivo.factoreshabilitantes == "":
+            context['empezovacio'] = True
+
+        return context
+
+    def form_valid(self, form):
+        self.objetivo.factoreshabilitantes = form.instance.factoreshabilitantes
+        self.objetivo.save()
+
+        if 'empezovacio' in self.request.POST:
+            return redirect(reverse('estrategias:actoresrelevantes_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+        else:
+            return redirect(reverse('estrategias:factoreshabilitantes', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+
+    def get_initial(self):
+        initial = super(FactoresHabilitantesEditView, self).get_initial()
+
+        initial['factoreshabilitantes'] = self.objetivo.factoreshabilitantes
+
+        return initial
+
+
+class ActoresRelevantesPreView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/actoresrelevantes_pre.html'
+    login_url = '/login'
+
+
+class ActoresRelevantesView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/actoresrelevantes.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        if not self.object.has_actoresrelevantes(objetivo=self.objetivo):
+            return redirect(reverse('estrategias:actoresrelevantes_edit', kwargs={'pk': self.object.id}) + '?oid=' + str(self.objetivo.id))
+        else:
+            return super(ActoresRelevantesView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ActoresRelevantesView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        return context
+
+
+class ActoresRelevantesEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):
+    form_class = EstrategiaActoresRelevantesForm
+    template_name = 'estrategias/actoresrelevantes_edit.html'
+    model = Estrategia
+    login_url = '/login'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        return super(ActoresRelevantesEditView, self).post(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            self.objetivo = self.object.get_objetivo_prioritario()
+
+        return super(ActoresRelevantesEditView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ActoresRelevantesEditView, self).get_context_data(**kwargs)
+
+        context['objetivo'] = self.objetivo
+
+        if self.objetivo.actoresrelevantes == "":
+            context['empezovacio'] = True
+
+        return context
+
+    def form_valid(self, form):
+        self.objetivo.actoresrelevantes = form.instance.actoresrelevantes
+        self.objetivo.save()
+
+        if 'empezovacio' in self.request.POST:
+            return redirect(reverse('estrategias:estrategia', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+        else:
+            return redirect(reverse('estrategias:actoresrelevantes', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+
+    def get_initial(self):
+        initial = super(ActoresRelevantesEditView, self).get_initial()
+
+        initial['actoresrelevantes'] = self.objetivo.actoresrelevantes
 
         return initial

@@ -6,11 +6,10 @@ urlpatterns = [
     # /
     url(r'^mis_estrategias', views.MisEstrategiasView.as_view(), name='mis_estrategias'),
     url(r'^nueva_estrategia', views.NuevaEstrategiaView.as_view(), name='nueva_estrategia'),
-    
 
-    # estrategia/
-    # url(r'^(?P<pk>[0-9]+)/$', views.EstrategiaView.as_view(), name='estrategia'),
-    
+    # estrategia
+    url(r'^(?P<pk>[0-9]+)/$', views.EstrategiaView.as_view(), name='estrategia'),
+
     # problematica
     url(r'^(?P<pk>[0-9]+)/problematica$', views.ProblematicaView.as_view(), name='problematica'),
     url(r'^(?P<pk>[0-9]+)/problematica/edit', views.ProblematicaEditView.as_view(), name='problematica_edit'),
@@ -41,5 +40,16 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/barreras/pre$', views.BarrerasPreView.as_view(), name='barreras_pre'),
     url(r'^(?P<pk>[0-9]+)/barreras$', views.BarrerasView.as_view(), name='barreras'),
     url(r'^(?P<pk>[0-9]+)/barreras/edit$', views.BarrerasEditView.as_view(), name='barreras_edit'),
+
+    # factoreshabilitantes
+    url(r'^(?P<pk>[0-9]+)/factoreshabilitantes/pre$', views.FactoresHabilitantesPreView.as_view(), name='factoreshabilitantes_pre'),
+    url(r'^(?P<pk>[0-9]+)/factoreshabilitantes$', views.FactoresHabilitantesView.as_view(), name='factoreshabilitantes'),
+    url(r'^(?P<pk>[0-9]+)/factoreshabilitantes/edit$', views.FactoresHabilitantesEditView.as_view(), name='factoreshabilitantes_edit'),
+
+    # actoresrelevantes
+    url(r'^(?P<pk>[0-9]+)/actoresrelevantes/pre$', views.ActoresRelevantesPreView.as_view(), name='actoresrelevantes_pre'),
+    url(r'^(?P<pk>[0-9]+)/actoresrelevantes$', views.ActoresRelevantesView.as_view(), name='actoresrelevantes'),
+    url(r'^(?P<pk>[0-9]+)/actoresrelevantes/edit$', views.ActoresRelevantesEditView.as_view(), name='actoresrelevantes_edit'),
+
 ]
 

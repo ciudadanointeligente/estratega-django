@@ -22,7 +22,7 @@ class EstrategiaLoginForm(AuthenticationForm):
         self.helper.layout = Layout(
                                 Field('username', css_class='input-xlarge'),
                                 Field('password', css_class='input-xlarge')
-        )  
+        )
 
 
 class EstrategiaTituloForm(forms.ModelForm):
@@ -128,3 +128,33 @@ class EstrategiaBarrerasForm(forms.ModelForm):
         )  
 
     barreras = forms.TextInput()
+
+
+class EstrategiaFactoresHabilitantesForm(forms.ModelForm):
+    class Meta:
+        model = Objetivo
+        fields = ('factoreshabilitantes',)
+
+    def __init__(self, *args, **kwargs):
+        super(EstrategiaFactoresHabilitantesForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+                                Field('factoreshabilitantes', css_class='input-xlarge'),
+        )  
+
+    factoreshabilitantes = forms.TextInput()
+
+
+class EstrategiaActoresRelevantesForm(forms.ModelForm):
+    class Meta:
+        model = Objetivo
+        fields = ('actoresrelevantes',)
+
+    def __init__(self, *args, **kwargs):
+        super(EstrategiaActoresRelevantesForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper() 
+        self.helper.layout = Layout(
+                                Field('actoresrelevantes', css_class='input-xlarge'),
+        )
+
+    actoresrelevantes = forms.TextInput()
