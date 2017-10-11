@@ -457,7 +457,7 @@ class ObjetivosNuevoView(LoginRequiredMixin, generic.detail.SingleObjectMixin, g
         self.object.objetivos.add(objetivo)
         self.object.save()
 
-        return redirect(reverse('estrategias:objetivos', kwargs={'pk': self.object.id}))
+        return redirect(reverse('estrategias:resultadosintermedios_pre', kwargs={'pk': self.object.id}) + '?oid=' + str(objetivo.id))
 
 
 class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMixin, generic.edit.FormView):

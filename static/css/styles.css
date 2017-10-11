@@ -266,6 +266,10 @@ section.flujo-estrategia-edit p {
   padding: 0;
 }
 
+.flujo-estrategia-head a:hover {
+  color: white;
+}
+
 
 /* Flujo Estrategia (show) */
 
@@ -564,7 +568,7 @@ div.row-item-metodologia img.check-mark {
 }
 
 .item-listado-estrategia .ile-titulo a {
-    color: white !important;
+    color: #575757 !important;
 }
 
 .item-listado-estrategia .ile-compartir {
