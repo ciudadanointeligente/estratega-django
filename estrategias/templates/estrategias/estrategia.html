@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block navbar %}
-    {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
+    {% include "navbar.html" %} 
 {% endblock %} 
 
 {% block content %}
@@ -17,112 +17,112 @@
     <div class="container">
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Problemática</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{estrategia.problematica}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Causas</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{estrategia.causas}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>        
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Solución Política</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{estrategia.solucionpolitica}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>        
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Objetivos</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{objetivo.objetivo}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Resultados Intermedios</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{objetivo.resultadosintermedios}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Barreras</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{objetivo.barreras}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Factores Habilitantes</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{objetivo.factoreshabilitantes}}</p>
             </div>
         </div>
 
         <div class="row spacer30"></div>
 
-        <div class="row">
+        <div class="row item-estrategia">
             <div class="col-md-2 text-center">
                 <img alt="Objetivos" src="{% static 'images/m02.svg' %}">
             </div>
             <div class="col-md-2 text-right">
                 <h3>Actores Relevantes</h3>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-md-offset-1">
                 <p>{{objetivo.actoresrelevantes}}</p>
             </div>
         </div>

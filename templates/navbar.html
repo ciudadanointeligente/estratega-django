@@ -17,16 +17,33 @@
             <ul class="nav navbar-nav pull-left">
                 <li {% if navhighlighted == "inicio" %} class="active" {% endif %}><a href="/">¿Que es?</a></li>
                 <li {% if navhighlighted == "metodologia" %} class="active" {% endif %}><a href="/metodologia">Metodología</a></li>
+
+                {% if user.is_authenticated %}                
                 <li {% if navhighlighted == "mis_estrategias" %} class="active" {% endif %}><a href="/estrategias/mis_estrategias">Mis Estrategias</a></li>
+                {% endif %}
+                
+                {% if user.is_authenticated and estrategia %}
+                <li class="active"><a href='{% url "estrategias:estrategia" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}'>{{ estrategia.titulo | truncatechars:25  }}</a></li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li {% if navhighlighted == "nueva_estrategia" %} class="active" {% endif %}><a href="/estrategias/nueva_estrategia">Nueva Estrategia</a></li>
+                {% endif %}
             </ul>
 
             {% if user.is_authenticated %}
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav">
                 <li><a href="/logout">Salir</a></li>
             </ul>
+            {% elif request.path == "/login" %}
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/login">Usa Estratega</a></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav">
+                <li><a href="/login">Usa Estratega</a></li>
+            </ul>
             {% endif %}
-
             
             <!--
             <ul class="nav navbar-nav pull-right">

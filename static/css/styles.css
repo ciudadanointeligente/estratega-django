@@ -58,16 +58,18 @@ input, button, select, textarea {
   float: none;
 }
 
-
-
+section.little-p-top {
+  padding-top: 50px;
+}
 
 section.default-p-top {
   padding-top: 70px;
 }
 
-section.mainflow-p-top {
-  padding-top: 50px;
+section.extra-p-top {
+  padding-top: 150px;
 }
+
 
 /* Buttons */
 
@@ -253,6 +255,12 @@ ul.dropdown-menu.dropdown-menu-button.thin{
     display: none;
 }
 */
+
+/* Mis Estrategias */
+
+.item-estrategia {
+  min-height: 120px;
+}
 
 
 /* Flujo Estrategia (edit) */
@@ -566,22 +574,6 @@ div.row-item-metodologia img.check-mark {
     font-size: 20px;
 }
 
-.item-listado-estrategia {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.item-listado-estrategia .ile-titulo a {
-    color: #575757 !important;
-}
-
-.item-listado-estrategia .ile-compartir {
-    font-size: 20px !important;
-}
-
-.item-listado-estrategia .ile-eliminar {
-    font-size: 20px !important;
-}
 
 
 /* Footer */

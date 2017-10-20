@@ -14,26 +14,24 @@
 {% endblock %}
 
 {% block navbar %}
-    {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
+    {% include "navbar.html" %} 
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-causas-titulo">
+<section class="metodologia extra-p-top" id="section-causas-titulo">
     <div class="container">
         {% include "estrategias/sections/row_item_metodologia_check.html" with item="causas" %}
     </div>
+
+    <div class="spacer30"></div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+            <h2 class="text-white">Vamos ahora a la Solución Política</h2>
+        </div>
+    </div>
+
     <div class="spacer60"></div>
 </section>
 
-<section class="flujo-estrategia flujo-estrategia-pre" id="section-solucionpolitica-pre">
-    <div class="container">
-        <div class="row">
-            <div class="spacer30"></div>
-            <div class="col-md-8 col-md-offset-2 text-center">
-                <h1>Vamos ahora a la Solución Política</h1>
-            </div>
-        </div>
-        <div class="spacer60"></div>
-    </div>
-</section>
 {% endblock %}

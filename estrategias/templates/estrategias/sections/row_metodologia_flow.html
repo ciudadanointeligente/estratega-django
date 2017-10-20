@@ -4,7 +4,7 @@
     <div class="row flujo-estrategia-head">
         <a href='{% url "estrategias:estrategia" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% endif %}' class="">
             <h1 class="text-white text-center">Estrategia para: {{ estrategia.titulo | truncatechars:35 }}</h1>
-            {% if objetivo %}
+            {% if request.GET.oid and objetivo and objetivo.objetivo != '' %}
             <h2 class="text-white text-center">Objetivo: {{ objetivo.objetivo | truncatechars:35 }}</h2>
             {% endif %}
         </a>
@@ -186,4 +186,14 @@
             {% endif %}
         </div>
     </div>
+
+
+    <!-- ¿Con o sin barra de progreso? -->
+    <!-- 
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+            60%
+        </div>
+    </div>
+    -->
 </div>

@@ -16,35 +16,39 @@
         {% if estrategias.count == 0 %}
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h2>¡Aún no has creado ninguna estrategia!</h2>
+                <h2>Aún no has creado ninguna Estrategia</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h3><a href="/estrategias/nueva_estrategia">Crea una acá</h3>
+                <h2><a href="/estrategias/nueva_estrategia">¡Crea una acá!</a></h2>
             </div>
         </div>
 
         <div class="row spacer60"></div>
-        {% endif %} 
-        
-        {% for estrategia in estrategias reversed %}
-        <div class="row item-listado-estrategia">
-            <div class="col-sm-1 ile-img">
-                <img src="{% static 'images/logotrans.png' %}" alt="Logo" />
-            </div>
-            <div class="col-sm-7 ile-titulo">
-                <a href="/estrategias/{{estrategia.id}}">{{estrategia.titulo}}</a>
-            </div>
-            <div class="col-sm-2 ile-compartir">
-                Compartir
-            </div>
-            <div class="col-sm-2 ile-eliminar">
-                <a href='{% url "estrategias:eliminar" pk=estrategia.id %}' onclick="return confirm('Estás segur@ que deseas eliminar esta estrategia?')" class="" role="">Eliminar</a>
-            </div>
+
+        {% else %}
+
+        <div class="row spacer60"></div>
+
+        <div class="lista-estrategias table-responsive">          
+            <table class="table table-striped">
+                <tbody>
+                    {% for estrategia in estrategias reversed %}                        
+                    <tr>
+                        <td><h3><a href="/estrategias/{{estrategia.id}}">{{estrategia.titulo}}</a></h3></td>
+                        <td>
+                            <span class="le1">Compartir</span><br/>
+                            <span class="le2"><a href='{% url "estrategias:eliminar" pk=estrategia.id %}' onclick="return confirm('Estás segur@ que deseas eliminar esta estrategia?')" class="" role="">Eliminar</a></span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        {% endfor %}
+
+        {% endif %}
     </div>
 </section>
 {% endblock %}

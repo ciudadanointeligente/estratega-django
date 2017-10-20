@@ -14,26 +14,23 @@
 {% endblock %}
 
 {% block navbar %}
-    {% include "navbar.html" with navhighlighted="mis_estrategias" %} 
+    {% include "navbar.html" %} 
 {% endblock %} 
 
 {% block content %}
-<section class="metodologia default-p-top" id="section-barreras-titulo">
+<section class="metodologia extra-p-top" id="section-barreras-titulo">
     <div class="container">
         {% include "estrategias/sections/row_item_metodologia_check.html" with item="resultadosintermedios" %}
     </div>
-    <div class="spacer60"></div>
-</section>
 
-<section class="flujo-estrategia flujo-estrategia-pre" id="section-barreras-pre">
-    <div class="container">
-        <div class="row">
-            <div class="spacer30"></div>
-            <div class="col-md-8 col-md-offset-2 text-center">
-                <h1>Vamos ahora a las Barreras</h1>
-            </div>
+    <div class="spacer30"></div>
+    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+            <h2 class="text-white">Vamos ahora a las Barreras</h2>
         </div>
-        <div class="spacer60"></div>
     </div>
+
+    <div class="spacer60"></div>
 </section>
 {% endblock %}

@@ -33,6 +33,7 @@ def log_out(request):
 def error_inesperado(request):
     return render(request, 'estratega/error_inesperado.html', {})
 
+
 # Login
 
 class EstrategaLoginView(LoginView):
@@ -54,6 +55,12 @@ class MisEstrategiasView(LoginRequiredMixin, generic.ListView):
 
 
 # Estrategia
+
+class EstrategiaPreView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    template_name = 'estrategias/estrategia_pre.html'
+    login_url = '/login'
+
 
 class EstrategiaView(LoginRequiredMixin, generic.DetailView):
     model = Estrategia
@@ -892,7 +899,7 @@ class ActoresRelevantesEditView(LoginRequiredMixin, generic.detail.SingleObjectM
         self.objetivo.save()
 
         if 'empezovacio' in self.request.POST:
-            return redirect(reverse('estrategias:estrategia', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
+            return redirect(reverse('estrategias:estrategia_pre', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
         else:
             return redirect(reverse('estrategias:actoresrelevantes', kwargs={'pk': self.object.pk}) + '?oid=' + str(self.objetivo.id))
 

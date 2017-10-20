@@ -8,7 +8,7 @@
 <script>
     // redirect to google after 3 seconds
     window.setTimeout(function() {
-        window.location.href = '{% url "estrategias:actoresrelevantes_edit" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}';
+        window.location.href = '{% url "estrategias:estrategia" pk=estrategia.id %}{% if request.GET.oid %}?oid={{request.GET.oid}}{% else %}?oid={{estrategia.get_objetivo_prioritario.id}}{% endif %}';
     }, 3000);
     </script>
 {% endblock %}
@@ -20,13 +20,13 @@
 {% block content %}
 <section class="metodologia extra-p-top" id="section-actoresrelevantes-titulo">
     <div class="container">
-        {% include "estrategias/sections/row_item_metodologia_check.html" with item="factoreshabilitantes" %}
+        {% include "estrategias/sections/row_item_metodologia_check.html" with item="estrategia" %}
 
         <div class="spacer30"></div>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center">
-                <h2 class="text-white">Vamos ahora a los Actores Relevantes</h2>
+                <h2 class="text-white">Vamos a ver tu Estrategia</h2>
             </div>
         </div>
 

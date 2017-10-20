@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^nueva_estrategia', views.NuevaEstrategiaView.as_view(), name='nueva_estrategia'),
 
     # estrategia
+    url(r'^(?P<pk>[0-9]+)/estrategia/pre$', views.EstrategiaPreView.as_view(), name='estrategia_pre'),
     url(r'^(?P<pk>[0-9]+)/$', views.EstrategiaView.as_view(), name='estrategia'),
     url(r'^(?P<pk>[0-9]+)/eliminar$', views.EstrategiaEliminarView.as_view(), name='eliminar'),
 
