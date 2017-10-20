@@ -117,6 +117,15 @@ class Estrategia(models.Model):
         except:
             return None
 
+    def delete_all_objetivos(self):
+        try:
+            for objetivo in self.objetivos:
+                self.objetivos.remove(objetivo)
+                objetivo.delete()
+            
+            return True
+        except:
+            return False
 
 class Objetivo(models.Model):
     objetivo = models.TextField()

@@ -28,7 +28,7 @@
                 <div class="row">
                     <p><a href='{% url "estrategias:resultadosintermedios" pk=estrategia.id %}?oid={{objetivo.id}}'>{{objetivo.objetivo}}</a></p>
                     <a href='{% url "estrategias:objetivos_edit" pk=estrategia.id %}?oid={{objetivo.id}}' class="" role="">Editar</a> / 
-                    <a href='{% url "estrategias:objetivos_eliminar" pk=estrategia.id %}?oid={{objetivo.id}}' class="" role="">Eliminar</a>
+                    <a href='{% url "estrategias:objetivos_eliminar" pk=estrategia.id %}?oid={{objetivo.id}}' onclick="return confirm('Estás segur@ que deseas eliminar este objetivo?')" class="" role="">Eliminar</a>
                 </div>
                 <div class="row spacer30"></div>
                 {% endfor %}

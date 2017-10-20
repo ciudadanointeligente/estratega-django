@@ -29,7 +29,7 @@
         <div class="row spacer60"></div>
         {% endif %} 
         
-        {% for estrategia in estrategias %}
+        {% for estrategia in estrategias reversed %}
         <div class="row item-listado-estrategia">
             <div class="col-sm-1 ile-img">
                 <img src="{% static 'images/logotrans.png' %}" alt="Logo" />
@@ -40,8 +40,8 @@
             <div class="col-sm-2 ile-compartir">
                 Compartir
             </div>
-            <div class="col-sm-2 ile-borrar">
-                Borrar
+            <div class="col-sm-2 ile-eliminar">
+                <a href='{% url "estrategias:eliminar" pk=estrategia.id %}' onclick="return confirm('Estás segur@ que deseas eliminar esta estrategia?')" class="" role="">Eliminar</a>
             </div>
         </div>
         {% endfor %}

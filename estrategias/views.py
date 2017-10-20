@@ -95,6 +95,21 @@ class EstrategiaView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
+# Eliminar Estrategia
+
+class EstrategiaEliminarView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    login_url = '/login'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete_all_objetivos()
+        self.object.delete()
+
+        # redirigimos a la lista de estrategias
+        return redirect(reverse('estrategias:mis_estrategias'))
+
+
 # Nueva Estrategia
 
 class NuevaEstrategiaView(LoginRequiredMixin, generic.edit.FormView):
