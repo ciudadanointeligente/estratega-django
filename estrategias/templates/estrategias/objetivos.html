@@ -27,8 +27,8 @@
                 {% for objetivo in estrategia.objetivos.all %}
                 <div class="row">
                     <p><a href='{% url "estrategias:resultadosintermedios" pk=estrategia.id %}?oid={{objetivo.id}}'>{{objetivo.objetivo}}</a></p>
-                    <a href='#' class="" role="">Editar</a> / 
-                    <a href='#' class="" role="">Borrar</a>
+                    <a href='{% url "estrategias:objetivos_edit" pk=estrategia.id %}?oid={{objetivo.id}}' class="" role="">Editar</a> / 
+                    <a href='{% url "estrategias:objetivos_eliminar" pk=estrategia.id %}?oid={{objetivo.id}}' class="" role="">Eliminar</a>
                 </div>
                 <div class="row spacer30"></div>
                 {% endfor %}

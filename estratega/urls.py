@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login', views.EstrategaLoginView.as_view(), name='login'),
     url(r'^logout', views.log_out, name='logout'),
+    url(r'^error_inesperado', views.error_inesperado, name='error_inesperado'),
     url(r'^metodologia', views.metodologia, name='metodologia'),
     url(r'^estrategias/', include('estrategias.urls', namespace='estrategias')),
     url(r'^admin/', include(admin.site.urls)),

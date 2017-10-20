@@ -30,6 +30,10 @@ def log_out(request):
     logout(request)
     return redirect('/')
 
+def error_inesperado(request):
+    return render(request, 'estratega/error_inesperado.html', {})
+
+# Login
 
 class EstrategaLoginView(LoginView):
     template_name = 'estrategias/login.html'
@@ -470,7 +474,7 @@ class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMix
         self.object = self.get_object()
         
         try:
-            id_objetivo = self.request.POST['oid']
+            id_objetivo = self.request.GET['oid']
             self.objetivo = self.object.objetivos.get(id=id_objetivo)
         except:
             self.objetivo = self.object.get_objetivo_prioritario()
@@ -513,6 +517,28 @@ class ObjetivosDetailEditView(LoginRequiredMixin, generic.detail.SingleObjectMix
         initial['objetivo'] = self.objetivo.objetivo
 
         return initial
+
+
+class ObjetivosEliminarView(LoginRequiredMixin, generic.DetailView):
+    model = Estrategia
+    login_url = '/login'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        try:
+            id_objetivo = self.request.GET['oid']
+            self.objetivo = self.object.objetivos.get(id=id_objetivo)
+        except:
+            # si no se ha especificado el id del objetivo, devolver a
+            # vista error inesperado
+            return redirect(reverse('error_inesperado'))
+
+        # borramos el objetivo
+        self.objetivo.delete()
+
+        # redirigimos a la lista de objetivos
+        return redirect(reverse('estrategias:objetivos', kwargs={'pk': self.object.pk}))
 
 
 class ResultadosIntermediosPreView(LoginRequiredMixin, generic.DetailView):

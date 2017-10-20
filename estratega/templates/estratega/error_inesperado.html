@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% load staticfiles %}
+
+{% block navbar %}
+    {% include "navbar.html" %} 
+{% endblock %}
+
+{% block content %}
+<section class="error" id="error">
+    <div class="container">
+        <div class="row">
+            <div class="spacer120"></div>
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1>Lo sentimos, ocurrió un error inesperado</h1>
+            </div>
+        </div>
+        <div class="spacer60"></div>
+    </div>
+</section>
+{% endblock %}
