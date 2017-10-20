@@ -22,6 +22,10 @@ def index(request):
     return render(request, 'estratega/index.html', {})
 
 
+def quees(request):
+    return render(request, 'estratega/quees.html', {})
+
+
 def metodologia(request):
     return render(request, 'estratega/metodologia.html', {})
 

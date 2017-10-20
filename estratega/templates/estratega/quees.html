@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% load staticfiles %}
+
+{% block navbar %}
+    {% include "navbar.html" with navhighlighted="quees" %} 
+{% endblock %} 
+
+{% block content %}
+<section class="default-p-top" id="section-quees">
+    <div class="container">
+        <h1 class="text-center width-800-nomargin">
+            ¿Que es Estratega?
+        </h1>
+        <h3>
+            Estratega es una metodología que te ayuda a ....
+        </h3>
+
+        <div class="rot spacer120"></div>
+    </div>
+</section>
+{% endblock %}

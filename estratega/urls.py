@@ -21,6 +21,7 @@ from estrategias import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^quees', views.quees, name='quees'),
     url(r'^login', views.EstrategaLoginView.as_view(), name='login'),
     url(r'^logout', views.log_out, name='logout'),
     url(r'^error_inesperado', views.error_inesperado, name='error_inesperado'),
